@@ -16,6 +16,7 @@ class Solution {
                left++;
            }
            
+           System.out.println(charfreq[r]);
           res=Math.max(res,right-left+1);
           right++;
        }
