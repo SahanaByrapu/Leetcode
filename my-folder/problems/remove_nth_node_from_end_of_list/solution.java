@@ -11,24 +11,23 @@
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         
-        ListNode dummy=new ListNode();
+        ListNode current = head;
+        ListNode dummy=new ListNode(-1);
         dummy.next=head;
-        int count=0;
-        ListNode curr=head;
-        while(curr!=null)
+        ListNode first=dummy;
+        ListNode second=dummy;
+        for(int i=1;i<=n+1;i++)
+            first=first.next;
+        while(first!=null)
         {
-            count++;
-            curr=curr.next;
+            first=first.next;
+            second=second.next;
         }
         
-        count=count-n;
-        curr=dummy;
-        while(count>0)
-        {
-            count--;
-            curr=curr.next;
-        }
-        curr.next=curr.next.next;
+        second.next=second.next.next;
+       
+        
         return dummy.next;
+        
     }
 }
