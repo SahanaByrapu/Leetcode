@@ -1,31 +1,28 @@
 class Solution {
     public boolean isValid(String s) {
         
-        Stack<Character> s1= new Stack<>();
-        int n=s.length();
-        
-        for(int i=0;i<n;i++)
+        HashMap<Character,Character> hmap = new HashMap();
+        hmap.put('}','{');
+        hmap.put(']','[');
+        hmap.put(')','(');
+
+        Stack<Character> st = new Stack();
+
+        for(Character c:s.toCharArray())
         {
-            char ch=s.charAt(i);
-            
-            if(ch == '(' || ch =='{' || ch=='[')
-                s1.add(ch);
-            
-            else
+            if(hmap.containsKey(c))
             {
-                char chr='#';
-                if(s1.isEmpty()) return false;
-                 chr=s1.pop();
-                
-                if ((ch==']'  &&  chr != '[') ||(ch =='}' &&  chr!='{') ||  
-                      (ch ==')' &&  chr!='(') ) 
-                 return false;
-                    
+                Character topElement=(st.isEmpty())? '#':st.pop();
+
+                if(topElement!= hmap.get(c))
+                    return false;
+
             }
+            else
+              st.push(c);
             
         }
-        
-       return s1.isEmpty();
-            
+      
+        return st.isEmpty();
     }
 }
