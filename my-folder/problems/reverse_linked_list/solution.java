@@ -16,10 +16,10 @@ class Solution {
 
         while(curr!=null)
         {
-            ListNode temp=prev;
+            ListNode temp=curr.next;
+            curr.next=prev;
             prev=curr;
-            curr=curr.next;
-            prev.next=temp;
+            curr=temp;
         }
 
        return prev;
