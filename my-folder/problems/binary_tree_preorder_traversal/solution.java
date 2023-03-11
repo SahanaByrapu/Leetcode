@@ -13,43 +13,17 @@
  *     }
  * }
  */
-
-//Morris pre-order traversal without stack and recursion
-//threaded binary trees
 class Solution {
-  
+    List<Integer> res=new ArrayList();
     public List<Integer> preorderTraversal(TreeNode root) {
-       List<Integer> nodes=new ArrayList<Integer>(); 
         
-        TreeNode cur=root;
-        while(cur!=null)
+        if(root!=null)
         {
-            if(cur.left==null) 
-            {
-                nodes.add(cur.val);
-                cur=cur.right;
-            }
-            else
-            {
-              TreeNode prev=cur.left;
-               while(prev.right!=null && prev.right!=cur)
-                   prev=prev.right;
-                
-               if(prev.right==null)
-               {
-                   prev.right=cur;
-                   nodes.add(cur.val);
-                   cur=cur.left;
-               }
-               else
-               {
-                   prev.right=null;
-                   cur=cur.right;
-               }
-            }
-          
+            res.add(root.val);
+            preorderTraversal(root.left);
+            preorderTraversal(root.right);
         }
-        
-        return nodes;
+
+        return res;
     }
 }
