@@ -1,24 +1,28 @@
 class Solution {
-    public String reverseWords(String s) {
+    public String reverseWords(String a) {
         
-        final StringBuilder result = new StringBuilder();
-        final StringBuilder word= new StringBuilder();
-        
-        for(int i=0;i<s.length();i++)
+        char[]s=a.toCharArray();
+        int len=a.length();
+        int lastSpaceindex=-1;
+        for(int start=0;start<=len;start++)
         {
-            if(s.charAt(i)!=' ')
-                word.append(s.charAt(i));
-            else
+          if(start==len || s[start]==' ')
+          {
+            int startIndex=lastSpaceindex+1;
+            int endIndex=start-1; 
+            while(startIndex<endIndex)
             {
-                result.append(word.reverse());
-                result.append(" ");
-                word.setLength(0);
+             char temp=s[startIndex];
+             s[startIndex++]=s[endIndex];
+             s[endIndex--]=temp;
             }
-            
+
+             lastSpaceindex=start;
+          }
+
+         
         }
-        
-        result.append(word.reverse());
-        return result.toString();
-       
+
+        return new String(s);
     }
 }
