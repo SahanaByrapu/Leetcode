@@ -1,27 +1,28 @@
 class Solution {
-    
+
     public String transformString(String s)
     {
-        int i,j,k;
-        HashMap<Character, Integer> map = new HashMap<>();
-        StringBuilder build = new StringBuilder();
-        for(i=0,j=0;i<s.length() ;i++)
+        HashMap<Character,Integer> hmap_s_t=new HashMap();
+        StringBuilder builder=new StringBuilder();
+
+        for(int i=0;i<s.length();i++)
         {
-            char c1=s.charAt(i);
-            if(!map.containsKey(c1))
-              map.put(c1,i);
-            
-            build.append(Integer.toString(map.get(c1)));
-            build.append(" ");
-        }
+             char c1=s.charAt(i);
+             if(!hmap_s_t.containsKey(c1))
+                hmap_s_t.put(c1,i);
+
+              builder.append(Integer.toString(hmap_s_t.get(c1))+" ");  
+               
+         }
        
-        return build.toString();
+        return builder.toString();
+
     }
     public boolean isIsomorphic(String s, String t) {
-      
-       if(transformString(s).equals(transformString(t)))
-          return true;
-       else
-          return false;
+
+        return transformString(s).equals(transformString(t));
+        
+        
+
     }
 }
