@@ -9,58 +9,61 @@
  * }
  */
 class Solution {
-     public ListNode reverseKlinkedlist(ListNode head, int k) {
-        ListNode new_head=null;
-        ListNode current=head;
-        ListNode nextnode=null;
-        while(k>0)
+
+    public ListNode reverseLinkedList(ListNode pointer ,int k)
+    {
+        ListNode prev=null;
+
+        while(k!=0)
         {
-            nextnode=current.next;
-            current.next=new_head;
-            new_head=current;
-            current=nextnode;
+            ListNode temp=pointer.next;
+            pointer.next=prev;
+            prev=pointer;
+            pointer=temp;
+
             k--;
         }
-        return new_head;
-     }
+
+        return prev;
+    }
+
     public ListNode reverseKGroup(ListNode head, int k) {
-        
-        ListNode curr=head;
-        ListNode ktail=null;
-        
-        ListNode new_head=null;
-        while(curr!=null)
-        {
-            int count=0;
-            
-            curr=head;
-            
-            while(count < k && curr!=null )
-            {
-                curr=curr.next;
-                count++;
-            }
-            
-            if(count==k)
-            {
-           
-            ListNode rev_head=reverseKlinkedlist(head,k);
-            
-            if(new_head == null)
-                new_head = rev_head;
-            
+      
+      ListNode ptr=head;
+      ListNode ktail=null;
+     
+      ListNode result=null;
+      while(ptr!=null)
+      {
+         int count=0;
+         ptr=head;
+         while(count!=k && ptr!=null)
+         {
+           ptr=ptr.next;
+           count++;
+         }
+         if(count==k)
+         {
+            ListNode revhead=reverseLinkedList(head,count);
+
+
+            if(result==null)
+              result=revhead;
+
             if(ktail!=null)
-                ktail.next=rev_head;
-            
+              ktail.next=revhead;
+
             ktail=head;
-            head=curr;
-            }
-        }
+            head=ptr;
+         }
+ 
+       }
+
+      if(ktail!=null)
+        ktail.next=head;
+
+
+      return result==null? head : result;
         
-        if(ktail !=null)
-            ktail.next=head;
-        
-        return new_head == null ? head : new_head;
-       
     }
 }
