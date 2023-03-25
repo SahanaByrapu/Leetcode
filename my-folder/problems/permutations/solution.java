@@ -1,33 +1,37 @@
 class Solution {
-    static void swap(int [] nums, int j, int k) 
+
+    public void swap(int nums[],int a, int b)
     {
-        int temp=nums[j];
-        nums[j]=nums[k];
-        nums[k]=temp;
+        int temp=nums[a];
+        nums[a]=nums[b];
+        nums[b]=temp;
     }
-    
-   static void func(int indx, int [] nums,  List<List<Integer>> result)
+    public void permutation(int idx, int[] nums, List<List<Integer>> res )
     {
-       if(indx==nums.length)
+        
+        if(idx==nums.length)
         {
-            List<Integer> arr = new ArrayList<Integer>();
-            for(int j=0;j<nums.length;j++)
-                arr.add(nums[j]);
-            result.add(new ArrayList<>(arr));
+            List<Integer> arr= new ArrayList<Integer>();
+            for(int i=0;i<nums.length;i++)
+             arr.add(nums[i]);
+            res.add(arr);
             return;
+        }  
+        
+        for(int i=idx;i<nums.length;i++)
+        {
+            swap(nums,i,idx);
+            permutation(idx+1,nums,res);
+            swap(nums,i,idx);
         }
         
-        for(int i=indx;i<nums.length;i++)
-        {
-            swap(nums,i,indx);
-            func(indx+1,nums,result);
-            swap(nums,i,indx);
-        }
+
     }
-    
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result=new ArrayList<List<Integer>>();
-        func(0,nums,result);
-        return result;
+
+        List<List<Integer>> res=new ArrayList<List<Integer>>();
+      
+        permutation(0,nums,res);
+        return res;
     }
 }
