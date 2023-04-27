@@ -47,11 +47,11 @@ class Solution
   public void insertionSort(int arr[], int n)
   {
       //code here
-      
+      if(n==1) return;
       for(int i=1;i<n;i++)
       { 
           int j=i;
-          while(j>0 && arr[j] < arr[j-1])
+          if(j>0 && arr[j] < arr[j-1])
            {
               int temp=arr[j];
               arr[j]=arr[j-1];
@@ -62,7 +62,7 @@ class Solution
            
       }
          
-         
+       insertionSort(arr,n-1); 
       }
   
 }
