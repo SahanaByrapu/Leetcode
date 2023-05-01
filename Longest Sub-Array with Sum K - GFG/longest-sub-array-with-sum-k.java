@@ -59,14 +59,10 @@ class Solution{
         {
             sum+=A[i];
             if(sum==K)
-            {
                 maxlen=Math.max(maxlen,i+1);
-                
-            }
             else if(hmap.containsKey(sum-K))
-            {
                 maxlen=Math.max(maxlen,i+1-hmap.get(sum-K));
-            }
+                
             if(!hmap.containsKey(sum))
               hmap.put(sum,i+1);
         }
