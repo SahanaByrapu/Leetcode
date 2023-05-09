@@ -35,35 +35,37 @@ class Solution {
     public int oddEvenJumps(int[] arr) {
        
         
-         int count = 1;
-        //Jump feasibility arrays. 
-        //These are Boolean vectors indicating if we can reach the end from an index by doing either a high or low jump
-        boolean[] high = new boolean[arr.length], low = new boolean[arr.length];
+         
+        TreeMap<Integer, Integer> tmap = new TreeMap();
         
-        //We can jump either high or low to reach the end if we're at the end
-        high[arr.length-1] = true;
-        low[arr.length-1] = true;
+        boolean [] high=new boolean[arr.length];
+        boolean [] low=new boolean[arr.length];
         
-        TreeMap<Integer, Integer> map = new TreeMap();
         
-        //Push the end to Tree
-        map.put(arr[arr.length-1], arr.length-1);
+        tmap.put(arr[arr.length-1],arr.length-1);
         
-        for (int i = arr.length-2; i >=0; i--){
-            //We get the next largest and next smallest by using inbuilt functions of the TreeMap (Please read documentation)
-            Map.Entry<Integer, Integer> nextLargest = map.ceilingEntry(arr[i]), nextSmallest = map.floorEntry(arr[i]);
+        high[arr.length-1]=true;
+        low[arr.length-1]=true;
+        
+        int jumps=1;
+        for(int i=arr.length-2;i>=0;i--)
+        {
             
-            //If there is a nextlargest item then we check if a successful low jump from next largest is possible by referring to the boolean array
-            high[i] = nextLargest != null ? low[(int)nextLargest.getValue()] : false;
-            // Simialr to above
-            low[i] = nextSmallest != null ? high[(int)nextSmallest.getValue()] : false;
+            Map.Entry<Integer, Integer> nextlargest=tmap.ceilingEntry(arr[i]);
+            Map.Entry<Integer, Integer> nextlowest=tmap.floorEntry(arr[i]);
             
-            if(high[i]){
-                count++;
-            }
-            map.put(arr[i], i); // We put the current value in the tree as we'll will need to consider it in their search for next largest/smallest for any previous item
+            high[i]=(nextlargest!=null)? low[(int)nextlargest.getValue()]:false;
+           
+            low[i]=(nextlowest!=null)? high[(int)nextlowest.getValue()]:false;
+            
+            if(high[i])
+               jumps++;
+            
+            //System.out.println(jumps);
+            tmap.put(arr[i],i);
         }
-        return count;
+        
+        return jumps;
         
             
     }
